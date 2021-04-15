@@ -21,7 +21,7 @@ services:
           - "5432:5432"
       restart: always
       volumes:
-          - postgres_data:/var/lib/postgresql/data/
+          - ./postgresdata:/var/lib/postgresql/data/
       environment:
           - POSTGRES_USER=postgres
           - POSTGRES_PASSWORD=test
