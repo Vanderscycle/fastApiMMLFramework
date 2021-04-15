@@ -3,6 +3,8 @@ from sqlalchemy import inspect,create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.util.langhelpers import decode_slice
+import json
+
 SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://postgres:test@sql-db/testApi"
 
 Base = declarative_base()
@@ -51,8 +53,8 @@ app = FastAPI()
 async def readUser(userId: int,db: Session = Depends(get_db)):
     # I have no clue why userId start at 1 instead of 0
     _user = db.query(UserModel).get(userId)
-    inspector = inspect(engine)
-    print(inspector.get_columns('user'))
+    #inspector = inspect(engine)
+    #print(inspector.get_columns('user'))
     try:
         return _user
     except Exception as e:
@@ -60,17 +62,22 @@ async def readUser(userId: int,db: Session = Depends(get_db)):
 
 
 #GETALL
-@app.get("/users/",response_model=User)
+@app.get("/users/")
 async def giveAllUser(db: Session = Depends(get_db)):
-    users = db.query(UserModel).all()
-    output = list()
-    for user in users:
+    _users = db.query(UserModel).all()
+
+    allUsers = list()
+    for _user in _users:
         try:
-            singleEntry = {"name":user.name,"family":user.family,"description":user.description}
-            output.append(jsonable_encoder(singleEntry))
+            allUsers.append({"id":_user.id,"name":_user.name,"family":_user.family,"description":_user.description})
+
         except Exception as e:
             print(e)
-    return output
+        #outDict[_user.id] = jsonable_encoder(_user) 
+    allUsers.sort(key = lambda allUsers:allUsers["id"])
+    return allUsers
+
+
 
 
 #POST
