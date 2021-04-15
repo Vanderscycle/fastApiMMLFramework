@@ -2,3 +2,9 @@ pydantic
 fastapi
 sqlalchemy 
 psycopg2-binary
+
+#testing
+pytest
+requests
+pytest-asyncio
+httpx
