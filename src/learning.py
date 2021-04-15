@@ -1,5 +1,4 @@
-import json
-from fastapi import FastAPI
+import json from fastapi import FastAPI
 from fastapi.encoders import jsonable_encoder
 # data validation
 from pydantic import BaseModel

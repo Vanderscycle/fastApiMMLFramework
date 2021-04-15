@@ -6,6 +6,8 @@ services:
       container_name: "core-api"
       ports:
           - "8000:80"
+      env_file:
+          - ./src/.env
       volumes:
           # local:container
           - ./data/:/data
@@ -23,9 +25,12 @@ services:
       volumes:
           - ./postgresdata:/var/lib/postgresql/data/
       environment:
-          - POSTGRES_USER=postgres
-          - POSTGRES_PASSWORD=test
-          - POSTGRES_DB=testApi
+          #- POSTGRES_USER=postgres
+          #- POSTGRES_PASSWORD=test
+          #- POSTGRES_USER=testApi
+          - POSTGRES_USER=${PGUSER}
+          - POSTGRES_PASSWORD=${PGPASSWORD}
+          - POSTGRES_DB=${PGDATABASE}
 
 volumes:
     api:

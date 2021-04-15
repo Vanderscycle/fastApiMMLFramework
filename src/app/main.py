@@ -1,11 +1,20 @@
+# passwords
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+PGUSER = os.getenv("PGUSER")  
+PGPASSWORD = os.getenv("PGPASSWORD")  
+PGDATABASE = os.getenv("PGDATABASE")  
+print([PGUSER,PGPASSWORD,PGDATABASE])
 # https://towardsdatascience.com/sqlalchemy-python-tutorial-79a577141a91
+# DB
 from sqlalchemy import inspect,create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.util.langhelpers import decode_slice
-import json
-
-SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://postgres:test@sql-db/testApi"
+#SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://postgres:test@sql-db/testApi"
+SQLALCHEMY_DATABASE_URL = f"postgresql+psycopg2://{PGUSER}:{PGPASSWORD}@sql-db/{PGDATABASE}"
 
 Base = declarative_base()
 
