@@ -47,6 +47,10 @@ from fastapi.encoders import jsonable_encoder
 # API
 app = FastAPI()
 
+#HOMEPAGE
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
 
 #GET
 @app.get("/users/{userId}", response_model=User)
@@ -76,8 +80,6 @@ async def giveAllUser(db: Session = Depends(get_db)):
         #outDict[_user.id] = jsonable_encoder(_user) 
     allUsers.sort(key = lambda allUsers:allUsers["id"])
     return allUsers
-
-
 
 
 #POST
