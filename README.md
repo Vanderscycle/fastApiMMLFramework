@@ -1,6 +1,6 @@
 Simple backend api.
 
-For a quick demo go to:
+For a quick demo(swagger docs) go to:
 ```bash
 http://172.105.111.30:8000/docs
 ```
@@ -15,13 +15,13 @@ docker-compose exec api pytest ../tests/mainTest.py -v
 ```
 Time didn't allow me full integration with github actions.
 
-FastApi has swagger documentation as part of its library and can be accessed using:
+FastApi has swagger documentation as part of its library and can be accessed(if ran locally) using:
 ```bash
 http://localhost:8000/docs
 ```
 
 Description of the journey:
-Took roughly 30 hours since I never create a full api (only GET using flask). 
+Took roughly 30 hours since I never created a full api (only GET using flask for a small ML model). 
 
 The approach was as follow:
   * learned about POST/GET/PATCH/DELETE using local variables,
@@ -35,11 +35,12 @@ The approach was as follow:
   * wrote the documentation.
 
 Known issues:
-  * init.sql is not working (from a previous project) but the tables are created regardless because of sqlalchemy. More time required to investigate.
-  * get all users doesn't returns a list of dictionaries.
+  * init.sql is not working (imported from a previous project) but the tables are created regardless because of sqlalchemy. More time required to investigate.
+  * get all users returns a list of dictionaries.
   * datavalidation with pydantic and the orm model is weird and despite some fields being specified for strings they allow for ints and floats.
   * The code could always use more comments.
   * unittest functions are not being reused because I don't know how to do so just yet.
+  * The first boot of docker-compose up can be problematic. Stopping and restarting the containers solves the db issue (do not delete containers).  
   
-Future development regardless of job:
+Future developments:
   * troubleshooting of .env and passwords.
