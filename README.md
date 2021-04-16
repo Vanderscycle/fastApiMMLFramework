@@ -39,6 +39,7 @@ Known issues:
   * get all users doesn't returns a list of dictionaries.
   * datavalidation with pydantic and the orm model is weird and despite some fields being specified for strings they allow for ints and floats.
   * The code could always use more comments.
-
+  * unittest functions are not being reused because I don't know how to do so just yet.
+  
 Future development regardless of job:
   * troubleshooting of .env and passwords.
