@@ -1,7 +1,9 @@
+DROP DATABASE testApi IF EXISTS;
 CREATE DATABASE testApi;
 
 -- do we mean first name and amily name?
-CREATE TABLE IF NOT EXISTS user (
+DROP TABLE user IF EXISTS;
+CREATE TABLE IF user (
     id serial PRIMARY KEY,
     name VARCHAR (50) NOT NULL,
     family VARCHAR (50) NOT NULL,
