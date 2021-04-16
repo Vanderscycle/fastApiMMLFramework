@@ -1,11 +1,13 @@
 # https://towardsdatascience.com/sqlalchemy-python-tutorial-79a577141a91
-from sqlalchemy import inspect,create_engine, Column, Integer, String
+from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
-from sqlalchemy.util.langhelpers import decode_slice
+
+import jsbeautifier
 import json
 
-SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://postgres:test@sql-db/testApi"
+SQLALCHEMY_DATABASE_URL = f"postgresql+psycopg2://postgres:test@sql-db/testApi"
+testing = True
 
 Base = declarative_base()
 
@@ -19,7 +21,10 @@ class UserModel(Base):
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base.metadata.create_all(engine, checkfirst=True)
+# deletes the previous data since we are still testing
+if testing:
+    Base.metadata.drop_all(bind=engine, tables=[UserModel.__table__])
+Base.metadata.create_all(engine, checkfirst=True, )
 
 
 def get_db():
@@ -31,7 +36,6 @@ def get_db():
 
 
 from pydantic import BaseModel
-
 
 class User(BaseModel):
     name: str
@@ -71,6 +75,7 @@ async def giveAllUser(db: Session = Depends(get_db)):
     _users = db.query(UserModel).all()
 
     allUsers = list()
+
     for _user in _users:
         try:
             allUsers.append({"id":_user.id,"name":_user.name,"family":_user.family,"description":_user.description})
@@ -79,7 +84,9 @@ async def giveAllUser(db: Session = Depends(get_db)):
             print(e)
         #outDict[_user.id] = jsonable_encoder(_user) 
     allUsers.sort(key = lambda allUsers:allUsers["id"])
-    return allUsers
+    opts = jsbeautifier.default_options()
+    opts.indent_size =2
+    return jsbeautifier.beautify(json.dumps(allUsers), opts)
 
 
 #POST
@@ -93,14 +100,15 @@ async def createUser(user:User,db: Session = Depends(get_db)):
 
 
 #DELETE
+#Known issues (choosing the  first available id)
 @app.delete("/users/{userId}")
 async def deleteUser(userId:int,db: Session = Depends(get_db)):
     db.query(UserModel).filter(UserModel.id==userId).delete()
     try:
         db.commit()
         return {"message": f"userId {userId} delete"}
-    except Exception as e:
-        return {"message": e}
+    except Exception:
+        return {"message": f"userId {userId} does not exist"}
 
 
 # PATCH
