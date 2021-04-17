@@ -1,3 +1,12 @@
+# passwords
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+PGUSER = os.getenv("PGUSER")  
+PGPASSWORD = os.getenv("PGPASSWORD")  
+PGDATABASE = os.getenv("PGDATABASE")  
+
 # https://towardsdatascience.com/sqlalchemy-python-tutorial-79a577141a91
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
@@ -6,7 +15,9 @@ from sqlalchemy.orm import sessionmaker, Session
 import jsbeautifier
 import json
 
-SQLALCHEMY_DATABASE_URL = f"postgresql+psycopg2://postgres:test@sql-db/testApi"
+# have fun without the .env file :) 
+SQLALCHEMY_DATABASE_URL = f"postgresql+psycopg2://{PGUSER}:{PGPASSWORD}@sql-db/{PGDATABASE}"
+
 testing = True
 
 Base = declarative_base()
