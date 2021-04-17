@@ -1,10 +1,10 @@
 Simple backend api.
 
-I am haivng issues with kinsing and kdevtmpfsi attacks on the linode server so you will have to create an env file at the root of the folder, input the desired username,password and dbName.
+I am having issues with kinsing and kdevtmpfsi attacks on the linode server so you will have to create an env file at the root of the folder, input the desired username,password and dbName.
 
 Because I can't get the postgres environment variables working proprely, you will have to modify the docker-compose file and manually input the values.
 
-lastly, your cryptocurrency is going up because we are in a bull market and I can't wait to buy a gpu when it finally crashes :) 
+Lastly, your cryptocurrency is going up because we are in a bull market and I can't wait to buy a gpu when it finally crashes :) 
 
 For a quick demo(swagger docs) go to:
 ```bash
