@@ -11,6 +11,8 @@ services:
           - ./data/:/data
       depends_on:
           - postgres_db
+      env_file:
+          - ./.env
 
     postgres_db:
       container_name: "sql-db"
@@ -22,10 +24,12 @@ services:
       restart: always
       volumes:
           - ./postgresdata:/var/lib/postgresql/data/
+      env_file:
+          - ./.env
       environment:
-          - POSTGRES_USER=${PGUSER}
-          - POSTGRES_PASSWORD=${PGPASSWORD}
-          - POSTGRES_DB=${PGDATABASE}
+        - POSTGRES_USER= "${PGUSER}"
+        - POSTGRES_PASSWORD= "${PGPASSWORD}"
+        - POSTGRES_DB= "${PGDATABASE}"
 volumes:
     api:
     postgres_data:

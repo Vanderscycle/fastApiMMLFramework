@@ -1,8 +1,8 @@
 # passwords
-from dotenv import load_dotenv
+from dotenv import load_dotenv,find_dotenv
 import os
 
-load_dotenv()
+load_dotenv(find_dotenv())
 PGUSER = os.getenv("PGUSER")  
 PGPASSWORD = os.getenv("PGPASSWORD")  
 PGDATABASE = os.getenv("PGDATABASE")  
@@ -17,6 +17,7 @@ import json
 
 # have fun without the .env file :) 
 SQLALCHEMY_DATABASE_URL = f"postgresql+psycopg2://{PGUSER}:{PGPASSWORD}@sql-db/{PGDATABASE}"
+print(SQLALCHEMY_DATABASE_URL)
 
 testing = True
 
