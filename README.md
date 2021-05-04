@@ -4,11 +4,9 @@ I am having issues with kinsing and kdevtmpfsi attacks on the linode server so y
 
 Because I can't get the postgres environment variables working proprely, you will have to modify the docker-compose file and manually input the values.
 
-Lastly, your cryptocurrency is going up because we are in a bull market and I can't wait to buy a gpu when it finally crashes :) 
-
 For a quick demo(swagger docs) go to:
 ```bash
-# please send me an email to request the new ip
+http://172.105.111.30:8000/docs
 ```
 
 To run the project locally:
